@@ -1,5 +1,5 @@
 {
-    "name":"terminal42/contao-pageimage",
+    "name":"comolo/contao-pageimage",
     "description":"pageimage extension for Contao Open Source CMS",
     "keywords":["contao", "page", "image", "background"],
     "type":"contao-module",
