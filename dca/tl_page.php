@@ -19,7 +19,7 @@ foreach ($GLOBALS['TL_DCA']['tl_page']['palettes'] as $name => $palette)
         continue;
     }
 
-    $GLOBALS['TL_DCA']['tl_page']['palettes'][$name] = str_replace('{meta_legend}', '{image_legend:hide},pageImage,pageImageJumpTo,pageImageAlt,pageImageTitle;{meta_legend}', $palette);
+    $GLOBALS['TL_DCA']['tl_page']['palettes'][$name] = str_replace('{meta_legend}', '{image_legend:hide},pageImage,pageImageJumpTo,pageImageAlt,pageImageTitle;{slideshow_legend:hide},pageSlideshow;{meta_legend}', $palette);
     $GLOBALS['TL_DCA']['tl_page']['fields']['type']['eval']['gallery_types'][] = $name;
 }
 
@@ -70,4 +70,22 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pageImageTitle'] = array
     'exclude'       => true,
     'eval'          => array('maxlength'=>255, 'tl_class'=>'w50'),
     'sql'           => "varchar(255) NOT NULL default ''",
+);
+
+/*
+ * Slideshow Fields
+ */
+$GLOBALS['TL_DCA']['tl_page']['fields']['pageSlideshow'] = array
+(
+    'label'         => &$GLOBALS['TL_LANG']['tl_page']['pageSlideshow'],
+    'inputType'     => 'fileTree',
+    'exclude'       => true,
+    'eval'          => array('fieldType'=>'checkbox', 'orderField'=>'pageSlideshowOrder', 'multiple'=>true, 'files'=>true, 'filesOnly'=>true, 'extensions'=>\Config::get('validImageTypes'), 'isGallery'=>true),
+    'sql'           => "blob NULL",
+);
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['pageSlideshowOrder'] = array
+(
+    'eval'          => array('doNotShow'=>true),
+    'sql'           => "blob NULL",
 );

@@ -1,0 +1,167 @@
+<!-- indexer::stop -->
+<div class="mod_page_slideshow <?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+    <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+    <?php endif; ?>
+
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+
+        <?php foreach ($this->images as $image): ?>
+            <div class="slide fade">
+                <div class="numbertext">1 / 3</div>
+                <?php $this->insert('picture_default', $image['picture']); ?>
+                <!--<img src="img1.jpg" style="width:100%">-->
+
+                <div class="text">Caption Text</div>
+            </div>
+        <?php endforeach; ?>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <div style="text-align:center">
+        <?php foreach ($this->images as $i => $image): ?>
+            <span class="dot" onclick="currentSlide(<?= $i + 1; ?>)"></span>
+        <?php endforeach; ?>
+    </div>
+
+</div>
+<!-- indexer::continue -->
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Automatic slide
+    window.setInterval(function () {
+        plusSlides(1);
+    }, 3000);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+</script>
+
+<style>
+    .mod_page_slideshow,
+    .mod_page_slideshow * {
+        box-sizing:border-box
+    }
+
+    /* Slideshow container */
+    .mod_page_slideshow .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+
+    /* Hide the images by default */
+    .mod_page_slideshow .slide {
+        display: none;
+    }
+
+    /* Next & previous buttons */
+    .mod_page_slideshow .prev, .mod_page_slideshow .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+    }
+
+    /* Position the "next button" to the right */
+    .mod_page_slideshow .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .mod_page_slideshow .prev:hover, .mod_page_slideshow .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    /* Caption text */
+    .mod_page_slideshow .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Number text (1/3 etc) */
+    .mod_page_slideshow .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* The dots/bullets/indicators */
+    .mod_page_slideshow .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    .mod_page_slideshow .active, .mod_page_slideshow .dot:hover {
+        background-color: #717171;
+    }
+
+    /* Fading animation */
+    .mod_page_slideshow .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+
+    @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+</style>

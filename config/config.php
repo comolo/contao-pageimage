@@ -15,6 +15,7 @@
  */
 $GLOBALS['FE_MOD']['miscellaneous']['pageImage']        = 'ModulePageImage';
 $GLOBALS['FE_MOD']['miscellaneous']['backgroundImage']  = 'ModuleBackgroundImage';
+$GLOBALS['FE_MOD']['miscellaneous']['pageSlideshow']    = 'ModulePageSlideshow';
 
 /**
  * Hooks

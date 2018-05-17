@@ -3,21 +3,21 @@
 /**
  * pageimage Extension for Contao Open Source CMS
  *
- * @copyright  Copyright (c) 2009-2014, terminal42 gmbh
- * @author     terminal42 gmbh <info@terminal42.ch>
+ * @copyright  Copyright (c) 2018 Comolo GmbH
+ * @author     Hendrik Obermayer <github.com/henobi>
  * @license    http://opensource.org/licenses/lgpl-3.0.html LGPL
- * @link       http://github.com/terminal42/contao-pageimage
+ * @link       http://github.com/comolo/contao-pageimage
  */
 
 
-class ModulePageImage extends Module
+class ModulePageSlideshow extends \Module
 {
 
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_pageimage';
+    protected $strTemplate = 'mod_page_slideshow';
 
 
     public function generate()
@@ -26,7 +26,7 @@ class ModulePageImage extends Module
         {
             $objTemplate = new BackendTemplate('be_wildcard');
 
-            $objTemplate->wildcard = '### PAGE IMAGE ###';
+            $objTemplate->wildcard = '### PAGE SLIDESHOW ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
@@ -57,31 +57,34 @@ class ModulePageImage extends Module
             return;
         }
 
-        $intOffset = (int) $this->levelOffset;
 
-        // Random image
-        if ($this->randomPageImage) {
-            $intOffset = -1;
-        }
+        $arrImages = PageImage::getMultiple($objPage);
 
-        $arrImage = PageImage::getOne($objPage, $intOffset, (bool) $this->inheritPageImage);
-
-        if (null === $arrImage) {
+        if (null === $arrImages || !count($arrImages)) {
             return;
         }
 
-        $arrSize = deserialize($this->imgSize);
-        $arrImage['src'] = $this->getImage($arrImage['path'], $arrSize[0], $arrSize[1], $arrSize[2]);
+        $arrTemplateImages = [];
 
-        $this->Template->setData($arrImage);
-        
-        $picture = \Picture::create($arrImage['path'], $arrSize)->getTemplateData();
-        $picture['alt'] = specialchars($arrImage['alt']);
-        $this->Template->picture = $picture;
+        foreach ($arrImages as $arrImage) {
+            $image = [];
+            $arrSize = deserialize($this->imgSize);
+            $image['src'] = $this->getImage($arrImage['path'], $arrSize[0], $arrSize[1], $arrSize[2]);
 
-        if (($imgSize = @getimagesize(TL_ROOT . '/' . rawurldecode($arrImage['src']))) !== false) {
-            $this->Template->size = ' ' . $imgSize[3];
+
+            $picture = \Picture::create($arrImage['path'], $arrSize)->getTemplateData();
+            $picture['alt'] = specialchars($arrImage['alt']);
+            $image['picture'] = $picture;
+
+            if (($imgSize = @getimagesize(TL_ROOT . '/' . rawurldecode($arrImage['src']))) !== false) {
+                $image['size'] = ' ' . $imgSize[3];
+            }
+
+            // Add to array
+            $arrTemplateImages[] = $image;
         }
+
+        $this->Template->images = $arrTemplateImages;
 
         // Add page information to template
         global $objPage;

@@ -18,7 +18,10 @@ $GLOBALS['TL_LANG']['tl_page']['pageImageJumpTo']	= array('Bild-Link für diese 
 $GLOBALS['TL_LANG']['tl_page']['pageImageAlt']		= array('Alternativer Text', 'Eine barrierefreie Webseite sollte immer einen alternativen Text für Bilder mit einer kurzen Beschreibung deren Inhalts enthalten.');
 $GLOBALS['TL_LANG']['tl_page']['pageImageTitle']	= array('Link-Titel', 'Geben Sie einen Titel für den Link ein. Ohne Eingabe wird der Titel der Bild-Link-Seite verwendet.');
 
+$GLOBALS['TL_LANG']['tl_page']['pageSlideshow']         = ['Slideshow für diese Seite', 'Wählen Sie ein Bild für diese Seite. Wenn Sie nichts angeben wird ggf. die Slideshow der übergeordneten Seite verwendet.'];
+
 /**
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_page']['image_legend']		= 'Seitenbild';
+$GLOBALS['TL_LANG']['tl_page']['slideshow_legend']		= 'Slideshow';
