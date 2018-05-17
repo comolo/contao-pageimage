@@ -32,11 +32,16 @@
 
 <script>
     var slideIndex = 1;
+    var lastSlideTime = Date.now();
+
     showSlides(slideIndex);
 
     // Automatic slide
     window.setInterval(function () {
-        plusSlides(1);
+        // Only slide if last slide change was more than 3 sec in the past
+        if (Date.now() - lastSlideTime > 3000) {
+            plusSlides(1);
+        }
     }, 3000);
 
     // Next/previous controls
@@ -50,6 +55,7 @@
     }
 
     function showSlides(n) {
+        lastSlideTime = Date.now();
         var i;
         var slides = document.getElementsByClassName("slide");
         var dots = document.getElementsByClassName("dot");
