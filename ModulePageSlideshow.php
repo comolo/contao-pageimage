@@ -35,13 +35,7 @@ class ModulePageSlideshow extends \Module
             return $objTemplate->parse();
         }
 
-        $strBuffer = parent::generate();
-
-        if ($this->Template->src == '') {
-            return '';
-        }
-
-        return $strBuffer;
+        return parent::generate();
     }
 
 
@@ -57,8 +51,7 @@ class ModulePageSlideshow extends \Module
             return;
         }
 
-
-        $arrImages = PageImage::getMultiple($objPage);
+        $arrImages = PageSlideshow::getMultiple($objPage);
 
         if (null === $arrImages || !count($arrImages)) {
             return;

@@ -8,14 +8,13 @@
     <!-- Slideshow container -->
     <div class="slideshow-container">
 
-        <?php foreach ($this->images as $image): ?>
-            <div class="slide fade">
-                <div class="numbertext">1 / 3</div>
+        <?php foreach ($this->images as $i => $image): ?>
+            <figure class="image_container slide fade">
+                <div class="numbertext"><?=sprintf('%s / %s', $i+1, count($this->images))?></div>
                 <?php $this->insert('picture_default', $image['picture']); ?>
-                <!--<img src="img1.jpg" style="width:100%">-->
 
-                <div class="text">Caption Text</div>
-            </div>
+                <!--<figcaption class="caption"><?=$image['picture']['caption']?></figcaption>-->
+            </figure>
         <?php endforeach; ?>
 
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -52,7 +51,7 @@
 
     function showSlides(n) {
         var i;
-        var slides = document.getElementsByClassName("mySlides");
+        var slides = document.getElementsByClassName("slide");
         var dots = document.getElementsByClassName("dot");
         if (n > slides.length) {slideIndex = 1}
         if (n < 1) {slideIndex = slides.length}

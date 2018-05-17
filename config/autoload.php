@@ -18,6 +18,7 @@ ClassLoader::addClasses(array
 	'ModulePageImage'           => 'system/modules/pageimage/ModulePageImage.php',
     'ModuleBackgroundImage'     => 'system/modules/pageimage/ModuleBackgroundImage.php',
     'PageImage'                 => 'system/modules/pageimage/PageImage.php',
+    'PageSlideshow'                 => 'system/modules/pageimage/PageSlideshow.php',
     'ModulePageSlideshow'       => 'system/modules/pageimage/ModulePageSlideshow.php',
 ));
 
